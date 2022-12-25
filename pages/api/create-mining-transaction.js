@@ -5,26 +5,25 @@ import {
   KoiosProvider,
   largestFirst,
 } from "@meshsdk/core";
-import { demoMnemonic } from "../../config/wallet";
-import {
-  assetsMetadata,
-  bankWalletAddress,
-  costLovelace,
-} from "../../config/mint";
+import { scriptAddressM } from "../../config/wallet";
+import { bankWalletAddress, costLovelace } from "../../config/mint";
+
+import { addNewMeta } from "../../backend/new.meta";
+import { getUnmintedNfts } from "../../backend/get.nft.unminted";
 
 export default async function handler(req, res) {
   const recipientAddress = req.body.recipientAddress;
   const utxos = req.body.utxos;
 
-  const blockchainProvider = new KoiosProvider("preview");
+  const blockchainProvider = new KoiosProvider("preprod");
 
   const appWallet = new AppWallet({
-    networkId: 0,
+    networkId: 1,
     fetcher: blockchainProvider,
     submitter: blockchainProvider,
     key: {
       type: "mnemonic",
-      words: demoMnemonic,
+      words: scriptAddressM,
     },
   });
 
@@ -34,17 +33,27 @@ export default async function handler(req, res) {
   /**
    * TODO: Here you want to select one of your NFT that has not been minted
    */
-
-  const assetIdPrefix = "MeshToken";
+  // let nfts = (await axios.get(`${url}/unminted`)).data.data;
+  let nfts = await getUnmintedNfts();
+  if (nfts.length <= 0) {
+    res.status(404).json({ result: "mintedOut", data: [] });
+  }
+  // const assetIdPrefix = "MeshToken";
   // In this starter template, we simply randomly pick one from.
-  let selectedAssetId = Math.floor(Math.random() * 10).toString();
-  const assetMetadata = assetsMetadata[selectedAssetId];
-  const assetName = `${assetIdPrefix}${selectedAssetId}`;
+  let selectedAssetId = Math.floor(Math.random() * 31923) % 37;
+  let selectedNft = nfts[selectedAssetId];
+
+  const metadata = {
+    name: selectedNft.name,
+    image: selectedNft.ipfs,
+    desc: selectedNft.desc,
+    power: selectedNft.power,
+  };
 
   const asset = {
-    assetName: assetName,
+    assetName: selectedNft.name,
     assetQuantity: "1",
-    metadata: assetMetadata,
+    metadata: metadata,
     label: "721",
     recipient: {
       address: recipientAddress,
@@ -63,13 +72,16 @@ export default async function handler(req, res) {
 
   const originalMetadata = Transaction.readMetadata(unsignedTx);
 
-  /**
-   * TODO: Here you want to save the `originalMetadata` in a database with the `assetName`
-   */
-
   const maskedTx = Transaction.maskMetadata(unsignedTx);
+
+  await addNewMeta(
+    parseInt(selectedNft.tokenId),
+    recipientAddress,
+    originalMetadata,
+    maskedTx
+  );
 
   // In this starter template, we send `originalMetadata` to the frontend.
   // Not recommended, its better to save the `originalMetadata` in a database.
-  res.status(200).json({ assetName, maskedTx, originalMetadata });
+  res.status(200).json({ tokenId: parseInt(selectedNft.tokenId), maskedTx });
 }

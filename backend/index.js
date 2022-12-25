@@ -20,10 +20,9 @@ export async function createTransaction(recipientAddress, utxos) {
   return await post(`create-mining-transaction`, { recipientAddress, utxos });
 }
 
-export async function signTransaction(assetName, signedTx, originalMetadata) {
+export async function signTransaction(tokenId, signedTx) {
   return await post(`sign-transaction`, {
-    assetName,
+    tokenId,
     signedTx,
-    originalMetadata,
   });
 }

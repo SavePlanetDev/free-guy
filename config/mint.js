@@ -1,6 +1,8 @@
-export const costLovelace = "10000000";
+export const costLovelace = "2000000"; //10ADA
 
-export const bankWalletAddress = `addr_test1qzmwuzc0qjenaljs2ytquyx8y8x02en3qxswlfcldwetaeuvldqg2n2p8y4kyjm8sqfyg0tpq9042atz0fr8c3grjmysm5e6yx`;
+export const bankWalletAddress = `addr_test1qr9kxjveut55akt8ry0gampk4jnccmwhy6r76wctaags5xr5yulqrefq2ff2y7ucwdknsuy3s5fp54dkvz7rnr2cenyqzn9md0`;
+
+export const url = "http://localhost:3022";
 
 export const assetsMetadata = {
   0: {
