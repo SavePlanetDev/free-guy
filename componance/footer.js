@@ -1,24 +1,23 @@
+import styles from "../styles/footer.module.css"
+
 export default function Footer(){
           return(
-                    <>
-                   
-                    <section class="message-list">
-                    <section class="message -left">
+                    <div className={styles.contanner}>
+                              <div>
+                              <section class="message-list">
+                              <section class="message -left">
+                              
+                              <i class="nes-mario" style={{position:"relative", top:"120px" }}></i>
+                              <div class="nes-balloon from-left">
+                              <p>Hello FreeGuys Man</p>
+                              </div>
+                              </section>
+                              </section>
+                              </div>
+                              <div>
+                                        
+                              </div>
                     
-                    <i class="nes-mario"></i>
-                    <div class="nes-balloon from-left">
-                    <p>Hello NES.css</p>
                     </div>
-                    </section>
-
-                    <section class="message -right">
-                    <div class="nes-balloon from-right">
-                    <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
-                    </div>
-                    
-                    <i class="nes-mario"></i>
-                    </section>
-                    </section>
-                    </>
           )
 }
