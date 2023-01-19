@@ -1,0 +1,44 @@
+.contanner{
+          position:relative;
+          display:flex;
+          flex-flow:row;
+          width:90%;
+          top:50px;
+          height: 100%;
+}
+
+.imagecontanner{
+          position:relative;
+          left:100px;
+}
+.image{
+          position:relative;
+          display:flex;
+          border:2px solid;
+          padding:10px;
+          box-shadow:10px 10px;
+}
+.textcontanner{
+          position:relative;
+          left:50px;
+          width:100%;
+          
+}
+.texttitle{
+          font-size:32px;
+          font-weight:800;
+}
+.textsub{
+          position:relative;
+          font-size:14px;
+          top:20px;
+
+}
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+.buttonmint{
+          position:relative;
+          font-family: 'VT323', monospace;
+          top:0px;
+          
+}
