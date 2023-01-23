@@ -1,21 +1,15 @@
-import Head from "../componance/head";
-import Header from "../componance/header";
-import Body from "../componance/body";
-import Footer from "../componance/footer"; 
+import Head from "../components/head";
+import Header from "../components/header";
+import Body from "../components/body";
+import Footer from "../components/footer";
 
 export default function Home() {
-
-
   return (
-          
-    <div >
-          
-          <Head/>
-          <Header/>
-          <Body/>
-          <Footer/>
-          
-
+    <div>
+      <Head />
+      <Header />
+      <Body />
+      <Footer />
     </div>
   );
 }
